@@ -4,7 +4,7 @@
 
 using namespace std;
  
-void priority(string args){
+void priority(string args, ifstream workload){
 	if(args == "with"){
 	}
 	else {

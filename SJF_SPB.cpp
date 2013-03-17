@@ -4,7 +4,7 @@
  
 using namespace std;
 
-void sjf_spb(string args){
+void sjf_spb(string args, ifstream workload){
 	if(args == "sjf"){
 	}
 	else {
