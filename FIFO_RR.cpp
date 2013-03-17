@@ -6,11 +6,10 @@
  
 using namespace std;
 
-void fifo(string args, vector<PCB> pcbs){
+void fifo(string args, vector<PCB*> pcbs){
 
 	//Run the first in first out algorithm
 	if(args == "fifo"){
-
 		
 	}
 

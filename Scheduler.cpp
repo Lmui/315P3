@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "Header.h"
+#include "PCB.h"
  
 using namespace std;
 
@@ -43,26 +44,26 @@ int main (){
 
 	cin >> select;
 	if(select == '1'){
-		fifo("fifo",pcbs);
+		fifo("fifo", pcbs);
 	}
 	else if(select == '2'){
-		fifo("RR",pcbs);
+		fifo("RR", pcbs);
 	}
 	else if(select == '3'){
-		priority("with",pcbs);
+		priority("with", pcbs);
 	}
 	else if(select == '4'){
 		priority("without",pcbs);
 	}
 	else if(select == '5'){
-		sjf_spb("sjf",pcbs);
+		sjf_spb("sjf", pcbs);
 	}
 	else if(select == '6'){
-		sjf_spb("spb",pcbs);
+		sjf_spb("spb", pcbs);
 	}
 	else {
 		cout << "Invalid choice, the program is now exiting\n";
-		system("PAUSE",pcbs);
+		system("PAUSE");
 		return 0;
 	}	
 	system("PAUSE");
