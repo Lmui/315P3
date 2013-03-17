@@ -56,8 +56,11 @@ int PCB::getPRIO(void){
 
 //Mutators (Not implemented at the moment)
 void PCB::incPRIO(int){
+	return;
 }
-int PCB::incTWaiting(int){
+void PCB::incTWaiting(int){
+	return;
 }
-int PCB::incTTime(int){
+void PCB::incTTime(int){
+	return;
 }

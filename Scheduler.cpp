@@ -20,15 +20,13 @@ int main (){
 	cin >> filename;
 	workload.open(filename.c_str());
 
-	//ensure the file opens correctly
-	/*
+	
 	if(workload.fail())
 	{
 		cout << "There was an error opening " << filename << "\n";
 		system("PAUSE");
 		return 0;
 	}
-	*/
 
 	//As long as there is data to read from the stream, add all the data to a vector of pcbs
 

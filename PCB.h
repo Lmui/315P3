@@ -5,8 +5,6 @@
 #include <vector>
 #include <string>
 
-
-
 using namespace std;
 
 class PCB {
@@ -21,8 +19,8 @@ public:
 	int getPRIO(void);
 
 	void incPRIO(int);
-	int incTWaiting(int);
-	int incTTime(int);
+	void incTWaiting(int);
+	void incTTime(int);
 
 private:
 
