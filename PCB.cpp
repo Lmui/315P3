@@ -55,17 +55,9 @@ int PCB::getPRIO(void){
 }
 
 //Mutators (Not implemented at the moment)
-void incPRIO(int);
-int incTWaiting(int);
-int incTTime(int);
-
-
-int TNCPU;
-int PID;
-int TARQ;
-int PRIO;
-int timeWaiting;
-int totalTime;
-int cpuRunCount;
-vector<int> cpuBurst;
-vector<int> ioBurst;
+void PCB::incPRIO(int){
+}
+int PCB::incTWaiting(int){
+}
+int PCB::incTTime(int){
+}
