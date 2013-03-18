@@ -39,7 +39,7 @@ PCB::PCB(string process){
 
 	/*
 	Parse the initial arguments.
-	Initializes PID, TARQ, PRIO and TNCPU to the value specified and adds all CPU/IO burst times sequentially to a vector
+	Initializes PID, TARQ, PRIO and TNCPU to the value specified and adds all CPU/IO burst times sequentially to a deque
 	named cpuBurst and ioBurst respectively
 	*/
 	char* tok = strtok(proc, " ");
@@ -152,18 +152,19 @@ void PCB::setNextRunTime(int time){
 void PCB::killProcess(void){
 	this-> isAlive = false;
 }
-
+//Set the readyQ flag
 void PCB::setReadyQ(void){
 	this->inReadyQ = true;
 }
+//Clear the readyQ flag
 void PCB::unsetReadyQ(void){
 	this->inReadyQ = false;
 }
-
+//Decrease the time necessary to complete the current cpu burst
 void PCB::decCPUburst(int time){
 	this->cpuBurst.front() -= time;
 }
-
+//Remove the front of both the io and CPU burst queues
 void PCB::popBursts(void){
 	this->cpuBurst.pop_front();
 	if(this->ioBurst.empty()){		

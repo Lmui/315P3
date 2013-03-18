@@ -52,9 +52,7 @@ CPU fifo(string args, vector<PCB*> pcbs){
 			}
 			//Find the element with the earliest runtime and put it at the front of the ready queue.
 			for(int k = 1; k < readyQueue.size();k++){
-				cout << k << " Comparing: " << readyQueue.front()->getNextRunTime() << " with: " << readyQueue.at(k)->getNextRunTime()<< "\n";
 				if(readyQueue.front()->getNextRunTime() > readyQueue.at(k)->getNextRunTime()){
-					cout << "Swapping the greater: " << readyQueue.front()->getNextRunTime() << " with the lesser: " << readyQueue.at(k)->getNextRunTime()<< "\n";
 					readyQueue.push_back(readyQueue.front());
 					readyQueue.pop_front();
 					readyQueue.push_front(*(readyQueue.begin()+k-1));

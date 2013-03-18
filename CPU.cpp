@@ -42,9 +42,6 @@ void CPU::run(PCB* process, int runtime){
 	//Sets the total time spent of the process to the elapsed time between when TARQ is and when the CPU burst for runtime terminates.
 	process->setTTime(this->time-process->getTARQ());
 
-	cout << "After running the burst, the PID is: " << process->getPID() << " TARQ is: " << process->getTARQ() << " TNCPU is: " << process->getTNCPU() << " PRIO is: "<< process->getPRIO() << "\n";
-	cout << "The earliest possible runtime of this process is: " << process->getNextRunTime() << "\n";	
-
 	return;
 }
 
