@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -13,9 +14,11 @@ int main (){
 	ifstream workload;
 	string filename;
 	char select;
-	CPU result;
+	CPU ranCPU;
 	vector<PCB*> pcbs;
 	int i=0;
+	int turnAround = 0;
+	int avgWait = 0;
 
 	//Prompt the user for the name of the file containing the workload
 	cout << "Please enter the name of the file that contains the workload: ";
@@ -47,7 +50,7 @@ int main (){
 	cout << "\nChoice " << select << " selected, calculating\n";
 
 	if(select == '1'){
-		result = fifo("fifo", pcbs);
+		ranCPU = fifo("fifo", pcbs);
 	}
 	else if(select == '2'){
 		fifo("RR", pcbs);
@@ -75,14 +78,20 @@ int main (){
 	
 	//Print out the process results, PID, total waiting time and total runtime
 	for(vector<PCB*>::iterator it = pcbs.begin(); it != pcbs.end(); ++it){
+		turnAround += (*it)->getTotalTime();
+		avgWait += (*it)->getTimeWaiting();
 		cout << "Process PID is: " << (*it)->getPID() << " Total waiting time is: " << (*it)->getTimeWaiting() << " Total time running is: " << (*it)->getTotalTime();
 		cout << "\n";
 	}
 
-	//
+	cout << "\n";
 
-	cout<< "\n";
+	//Throughput
+	cout << "The throughput is: " << fixed << setprecision(2) << ((float)ranCPU.getTime() / pcbs.size()) << " CPU time units per process on average\n";
+	cout << "The waiting time is: " << fixed << setprecision(2) << ((float)avgWait / pcbs.size()) << " time units per process on average\n";
+	cout << "The turnaround time is: " <<  fixed << setprecision(2) << ((float)turnAround / pcbs.size()) << "time units per process on average\n";
 
-	system("PAUSE");
+	cout<< "\n\n";
+
 	return 0;
 }
