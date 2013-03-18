@@ -4,6 +4,7 @@
 #include <vector>
 #include <deque>
 #include "PCB.h"
+#include <limits>
 
 using namespace std;
 
@@ -93,7 +94,12 @@ bool PCB::getLife(void){
 }
 //Get the length of the next CPU burst
 int PCB::getNextCPU(void){
-	return this->cpuBurst.front();
+	if(this->cpuBurst.empty()){
+		return numeric_limits<int>::max();
+	}
+	else{
+		return this->cpuBurst.front();
+	}
 }
 //Get the length of the next IO burst, if there are no IO bursts left, return 0;
 int PCB::getNextIO(void){

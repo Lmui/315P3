@@ -12,14 +12,11 @@ using namespace std;
 CPU fifo(string args, vector<PCB*> pcbs){
 
 	CPU runningCPU;
-	int quantum;
+	int quantum;	
+	deque<PCB*> readyQueue;	
+	int deathCount;	
 
-	//Run the first in first out algorithm
-
-	if(args == "fifo"){
-
-	}
-	else{
+	if(args != "fifo"){
 		string s;
 		do{
 			cout << "Please enter a positive integer as the time alotted to each time slice: ";
@@ -27,12 +24,10 @@ CPU fifo(string args, vector<PCB*> pcbs){
 			quantum = stoi(s);
 		}while(quantum < 1);
 	}
-
-	deque<PCB*> readyQueue;	
-	int deathCount = 0;	
+	
 	while(1){
 		deathCount = 0;
-		//Add all processes to ready queue if possible
+		//Add all processes that can be run to the ready queue
 		for(int i = 0; i < pcbs.size(); i++){
 
 			//If the process is dead, ignore it and take note
@@ -51,7 +46,6 @@ CPU fifo(string args, vector<PCB*> pcbs){
 			}
 		}
 		//Find the element with the earliest runtime and put it at the front of the ready queue.
-		//Use this algorithm since it runs in O(n) time vs O(nlogn) for sorting all elements. No need to worry about sorted insertion
 		for(int k = 1; k < readyQueue.size();k++){
 			if(readyQueue.front()->getNextRunTime() > readyQueue.at(k)->getNextRunTime()){
 				readyQueue.push_back(readyQueue.front());

@@ -63,7 +63,7 @@ int main (){
 		priority("without",pcbs);
 	}
 	else if(select == '5'){
-		sjf_spb("sjf", pcbs);
+		ranCPU = sjf_spb("sjf", pcbs);
 	}
 	else if(select == '6'){
 		sjf_spb("spb", pcbs);
@@ -108,7 +108,7 @@ int main (){
 	//Throughput
 	cout << "The throughput is: " << fixed << setprecision(2) << ((float)ranCPU.getTime() / pcbs.size()) << " CPU time units per process on average\n";
 	cout << "The waiting time is: " << fixed << setprecision(2) << ((float)avgWait / pcbs.size()) << " time units per process on average\n";
-	cout << "The turnaround time is: " <<  fixed << setprecision(2) << ((float)turnAround / pcbs.size()) << "time units per process on average\n";
+	cout << "The turnaround time is: " <<  fixed << setprecision(2) << ((float)turnAround / pcbs.size()) << " time units per process on average\n";
 
 	cout<< "\n";
 	cout << "\nAll processes finished execution at time " << cpuTime << "\n";

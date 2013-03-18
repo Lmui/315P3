@@ -10,7 +10,7 @@ using namespace std;
 
 void priority(string,vector<PCB*> pcbs);
 CPU fifo(string,vector<PCB*> pcbs);
-void sjf_spb(string, vector<PCB*> pcbs);
+CPU sjf_spb(string, vector<PCB*> pcbs);
 static bool compareTimes(PCB, PCB);
 
 

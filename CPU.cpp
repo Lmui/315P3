@@ -10,7 +10,7 @@ using namespace std;
 //If the runtime is equal to the length of the CPU burst, removes the CPU burst from the cpuburst vector and adds ioBurst to the NextRunTime variable before popping
 //ioburst. Otherwise, sets the NextRunTime variable to when the run() process finishes
 void CPU::run(PCB* process, int runtime){
-
+	
 	//Add the process to the gantt chart data
 	this->runtime.push_back(runtime);
 	this->PIDs.push_back(process->getPID());
