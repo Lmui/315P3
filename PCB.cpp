@@ -105,10 +105,26 @@ int PCB::getNextIO(void){
 	}
 
 }
-
 //returns NextRunTime, the time at which the process returns to the ready queue.
 int PCB::getNextRunTime(void){
 	return this->nextRunTime;
+}
+//Returns the total amount of time which the process was waiting in the ready queue
+int PCB::getTimeWaiting(void){
+	return this->timeWaiting;
+}
+//Returns the total amount of time for which this process was running
+int PCB::getTotalTime(void){
+	return this->totalTime;
+}
+//Returns if there are no more CPU bursts and the process should die
+bool PCB::shouldDie(){
+	if(this->cpuBurst.empty()){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 //Mutators 
@@ -128,8 +144,8 @@ void PCB::setTTime(int time){
 	return;
 }
 //Increment the time until the process can be run again
-void PCB::incNextRunTime(int time){
-	this->nextRunTime += time;
+void PCB::setNextRunTime(int time){
+	this->nextRunTime = time;
 }
 
 //Kill the process

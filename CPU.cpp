@@ -9,14 +9,13 @@ using namespace std;
 //If the runtime is equal to the length of the CPU burst, removes the CPU burst from the cpuburst vector and adds ioBurst to the NextRunTime variable before popping
 //ioburst. Otherwise, sets the NextRunTime variable to when the run() process finishes
 void CPU::run(PCB* process, int runtime){
-	cout << "Runtime: " << runtime << "\n";
 
 	//Add the process to the gantt chart data
 	this->runtime.push_back(runtime);
 	this->PIDs.push_back(process->getPID());
 	
 	//Adjust the fields within the PCB
-	//Increment the timewaiting field by the length of time that the process spent between entering the ready queue and now.
+	//Increment the timewaiting field by the length of time that the process spent between entering the ready queue and entering the running state.
 	//Note that it has left the ready queue and must be readded by unsetting the readyQ flag
 	process->incTWaiting(this->getTime() - process->getNextRunTime());
 	process->unsetReadyQ();
@@ -26,13 +25,15 @@ void CPU::run(PCB* process, int runtime){
 	//to the time that the current burst finishes
 	if(runtime < process->getNextCPU()){
 		process->decCPUburst(runtime);
-		process->incNextRunTime(runtime);
+		process->setNextRunTime(runtime+this->getTime());
 	}
 	//If the runtime is sufficient to finish the current CPU burst, pop it, and set the next run time or, if there are no more IO bursts, kill the process.
 	else{
-		process->incNextRunTime(runtime + process->getNextIO());
+		process->setNextRunTime(this->getTime()+runtime + process->getNextIO());
 		process->popBursts();
-
+		if(process->shouldDie()){
+			process->killProcess();
+		}
 	}
 
 	//Increment the CPU time by the amount of time that the current process uses
@@ -40,6 +41,11 @@ void CPU::run(PCB* process, int runtime){
 
 	//Sets the total time spent of the process to the elapsed time between when TARQ is and when the CPU burst for runtime terminates.
 	process->setTTime(this->time-process->getTARQ());
+
+	cout << "After running the burst, the PID is: " << process->getPID() << " TARQ is: " << process->getTARQ() << " TNCPU is: " << process->getTNCPU() << " PRIO is: "<< process->getPRIO() << "\n";
+	cout << "The earliest possible runtime of this process is: " << process->getNextRunTime() << "\n";	
+
+	return;
 }
 
 int CPU::getTime(void){

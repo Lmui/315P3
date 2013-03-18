@@ -66,6 +66,11 @@ int main (){
 		system("PAUSE");
 		return 0;
 	}	
+	for(vector<PCB*>::iterator it = pcbs.begin(); it != pcbs.end(); ++it){
+		cout << "The PID is: " << (*it)->getPID() << " TARQ is: " << (*it)->getTARQ() << " TNCPU is: " << (*it)->getTNCPU() << " PRIO is: "<< (*it)->getPRIO() << "\n";
+		cout << "The total runtime of the process is: " << (*it)->getTotalTime() << " and the total waiting time is: " << (*it)->getTimeWaiting() << "\n";		
+	}
+
 	system("PAUSE");
 	return 0;
 }

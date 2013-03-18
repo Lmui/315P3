@@ -24,6 +24,9 @@ public:
 	int getNextIO(void);
 	bool getLife(void);
 	bool isInReady(void);
+	int getTimeWaiting(void);
+	int getTotalTime(void);	
+	bool shouldDie(void);
 
 	//Mutators
 	void incPRIO(int);
@@ -33,7 +36,7 @@ public:
 	void unsetReadyQ(void);
 	void killProcess(void);
 	void decCPUburst(int);
-	void incNextRunTime(int);
+	void setNextRunTime(int);
 	void popBursts(void);
 
 private:

@@ -29,7 +29,6 @@ CPU fifo(string args, vector<PCB*> pcbs){
 		int deathCount = 0;		
 		runningCPU.setProcessCount(pcbs.size());
 		while(1){
-			cout << "The PID is: " << pcbs.front()->getPID() << "\n" << "pcbsize is: " << pcbs.size() << "\n";
 			deathCount = 0;
 			//Add all processes to ready queue if possible
 			for(int i = 0; i < pcbs.size(); i++){
@@ -37,7 +36,6 @@ CPU fifo(string args, vector<PCB*> pcbs){
 				//If the process is dead, ignore it
 				if(!pcbs.at(i)->getLife()){
 					deathCount++;
-					cout << "the deathcount is: " << deathCount << "\n";
 				}
 				//If it can be run at this point in time and is not currently in the ready queue, add it to the ready queue.
 				//The ready queue should always have the first running object at the front of the queue. The order of all other elements is not set.
@@ -48,37 +46,36 @@ CPU fifo(string args, vector<PCB*> pcbs){
 					//Add the element to the ready queue
 					readyQueue.push_back(pcbs[i]);
 
-					//Move the first arrival into the ready queue into the front of the queue
-					for(int k = 1; k < readyQueue.size();k++){
-						if(readyQueue.front()->getNextRunTime() > readyQueue.at(k)->getNextRunTime()){
-							
-							readyQueue.push_back(readyQueue.front());
-							readyQueue.pop_front();
-							readyQueue.push_front(*(readyQueue.begin()+k-1));
-							readyQueue.erase(readyQueue.begin()+k);
 
-						}
 
-					}					
 				}
 			}
+			//Find the element with the earliest runtime and put it at the front of the ready queue.
+			for(int k = 1; k < readyQueue.size();k++){
+				cout << k << " Comparing: " << readyQueue.front()->getNextRunTime() << " with: " << readyQueue.at(k)->getNextRunTime()<< "\n";
+				if(readyQueue.front()->getNextRunTime() > readyQueue.at(k)->getNextRunTime()){
+					cout << "Swapping the greater: " << readyQueue.front()->getNextRunTime() << " with the lesser: " << readyQueue.at(k)->getNextRunTime()<< "\n";
+					readyQueue.push_back(readyQueue.front());
+					readyQueue.pop_front();
+					readyQueue.push_front(*(readyQueue.begin()+k-1));
+					readyQueue.erase(readyQueue.begin()+k);
+
+				}
+
+			}	
 			//If there are no living processes, stop
 			if(deathCount >= pcbs.size()){
 				break;
 			}
 			//If there are still living processes, but none of them can be run, run an idle process for one unit of time
-			else if(readyQueue.empty()){
+			if(readyQueue.empty()){
 				PCB* idle = new PCB();
-				runningCPU.run(idle, 1);
-			}
-			//"Run" the first ready process
-			else{
-				runningCPU.run(readyQueue.front(),readyQueue.front()->getNextCPU());
+				readyQueue.push_front(idle);
 			}
 			//Remove the process from the ready queue now that it has been run.
+			runningCPU.run(readyQueue.front(),readyQueue.front()->getNextCPU());
 			readyQueue.pop_front();
 		}
-		cout << "FINISHED \n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
 		return runningCPU;
 	}
 
