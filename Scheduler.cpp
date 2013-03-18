@@ -43,6 +43,9 @@ int main (){
 		 << "3. Priority (Without Preemption)\n" << "4. Priority (With Preemption)\n" << "5. SJF (Shortest Job First)\n" << "6. SPB (Shortest Previous Burst)\n";
 
 	cin >> select;
+
+	cout << "\nChoice " << select << " selected, calculating\n";
+
 	if(select == '1'){
 		result = fifo("fifo", pcbs);
 	}
@@ -66,10 +69,19 @@ int main (){
 		system("PAUSE");
 		return 0;
 	}	
+
+	cout << "\n====================================================================\n" << "RESULTS\n";
+	cout << "====================================================================\n\n";
+	
+	//Print out the process results, PID, total waiting time and total runtime
 	for(vector<PCB*>::iterator it = pcbs.begin(); it != pcbs.end(); ++it){
-		cout << "The PID is: " << (*it)->getPID() << " TARQ is: " << (*it)->getTARQ() << " TNCPU is: " << (*it)->getTNCPU() << " PRIO is: "<< (*it)->getPRIO() << "\n";
-		cout << "The total runtime of the process is: " << (*it)->getTotalTime() << " and the total waiting time is: " << (*it)->getTimeWaiting() << "\n";		
+		cout << "Process PID is: " << (*it)->getPID() << " Total waiting time is: " << (*it)->getTimeWaiting() << " Total time running is: " << (*it)->getTotalTime();
+		cout << "\n";
 	}
+
+	//
+
+	cout<< "\n";
 
 	system("PAUSE");
 	return 0;
