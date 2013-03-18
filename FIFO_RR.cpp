@@ -29,8 +29,7 @@ CPU fifo(string args, vector<PCB*> pcbs){
 	}
 
 	deque<PCB*> readyQueue;	
-	int deathCount = 0;		
-	runningCPU.setProcessCount(pcbs.size());
+	int deathCount = 0;	
 	while(1){
 		deathCount = 0;
 		//Add all processes to ready queue if possible

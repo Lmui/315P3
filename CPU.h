@@ -4,7 +4,7 @@
 
 #include "PCB.h"
 #include <iostream>
-#include <vector>
+#include <deque>
 #include <string>
 
 using namespace std;
@@ -16,22 +16,19 @@ public:
 		this->time = 0;
 	}
 
-	void run(PCB* process, int runtime);
+	
 	int getTime(void);
+	int getCount(void);
+	deque<int>::iterator getPID(void);
+	deque<int>::iterator getRuntimes(void);
 
-	void setProcessCount(int);
 
+	void run(PCB* process, int runtime);
 
 private:
-	vector<int> runtime;
-	vector<int> PIDs;
-	int numProcesses;
+	deque<int> runtime;
+	deque<int> PIDs;
 	int time;
-	int totalWait;
-	int totalExec;
-	float avgWait;
-	float throughput;
-	float turnaround;
 };
 
 #endif CPU_H_

@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <deque>
 #include "Header.h"
 #include "PCB.h"
 #include "CPU.h"
@@ -53,7 +54,7 @@ int main (){
 		ranCPU = fifo("fifo", pcbs);
 	}
 	else if(select == '2'){
-		fifo("RR", pcbs);
+		ranCPU = fifo("RR", pcbs);
 	}
 	else if(select == '3'){
 		priority("with", pcbs);
@@ -93,5 +94,22 @@ int main (){
 
 	cout<< "\n\n";
 
+	int cpuTime = 0;
+	deque<int>::iterator runTimes = ranCPU.getRuntimes();
+	deque<int>::iterator cpuPIDs = ranCPU.getPID();
+	//Iterates through the list of run processes, printing their runtimes.
+	for(int i = 0; i < ranCPU.getCount(); i++){
+		cout.fill(' ');
+		cout << "Time: ";
+		cout << setw(5) << cpuTime;
+		cout << " PID: ";
+		cout << setw(5) << (*cpuPIDs);
+		cout <<" CPU burst length: ";
+		cout << setw(5) << (*runTimes) << "\n";		
+		cpuTime += (*runTimes);
+		runTimes++;
+		cpuPIDs++;		
+	}
+	cout << "\nAll processes finished execution at time " << cpuTime << "\n";
 	return 0;
 }

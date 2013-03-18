@@ -2,6 +2,7 @@
 #include "CPU.h"
 #include <iostream>
 #include <vector>
+#include <deque>
 
 using namespace std;
 
@@ -45,10 +46,26 @@ void CPU::run(PCB* process, int runtime){
 	return;
 }
 
+//Returns the total time that the CPU has been running up to this point
 int CPU::getTime(void){
 	return this->time;
 }
 
-void CPU::setProcessCount(int count){
-	this->numProcesses = count;
+//Returns an iterator that iterates through the PID deque
+deque<int>::iterator CPU::getPID(void){
+	
+	deque<int>::iterator PIDs = this->PIDs.begin();
+	return PIDs;
+}
+
+//Returns an iterator that iterates through the CPU runtime deque
+deque<int>::iterator CPU::getRuntimes(void){
+
+	deque<int>::iterator runTimes = this->runtime.begin();
+	return runTimes;
+
+}
+
+int CPU::getCount(void){
+	return this->PIDs.size();
 }
