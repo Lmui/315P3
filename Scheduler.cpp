@@ -44,7 +44,7 @@ int main (){
 
 	//Prompt the user to select an algorithm to analyze the data
 	cout << "Please select an algorithm to analyze the data: \n" << "1. FIFO (First In First Out)\n" << "2. Round Robin with quantum time\n" 
-		 << "3. Priority (Without Preemption)\n" << "4. Priority (With Preemption)\n" << "5. SJF (Shortest Job First)\n" << "6. SPB (Shortest Previous Burst)\n";
+		 << "3. Priority (With Rude Preemption)\n" << "4. Priority (With Polite Preemption)\n"<< "5. Priority (Time Sliced)\n" << "6. SJF (Shortest Job First)\n" << "7. SPB (Shortest Previous Burst)\n";
 
 	cin >> select;
 
@@ -57,17 +57,21 @@ int main (){
 		ranCPU = fifo("RR", pcbs);
 	}
 	else if(select == '3'){
-		ranCPU = priority("with", pcbs);
+		ranCPU = priority("with_rude", pcbs);
 	}
 	else if(select == '4'){
-		ranCPU = priority("without",pcbs);
+		ranCPU = priority("with_pol",pcbs);
 	}
 	else if(select == '5'){
-		ranCPU = sjf_spb("sjf", pcbs);
+		ranCPU = priority("without",pcbs);
 	}
 	else if(select == '6'){
+		ranCPU = sjf_spb("sjf", pcbs);
+	}
+	else if(select == '7'){
 		ranCPU = sjf_spb("spb", pcbs);
 	}
+	
 	else {
 		cout << "Invalid choice, the program is now exiting\n";
 		system("PAUSE");
