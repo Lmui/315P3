@@ -75,8 +75,26 @@ int main (){
 	}	
 
 	cout << "\n====================================================================\n" << "RESULTS\n";
-	cout << "====================================================================\n\n";
-	
+	cout << "====================================================================\n\n";	
+
+	int cpuTime = 0;
+	deque<int>::iterator runTimes = ranCPU.getRuntimes();
+	deque<int>::iterator cpuPIDs = ranCPU.getPID();	
+	cout << "   Time Progress PID\n\n";
+	//Iterates through the list of run processes, printing their runtimes as a vertical gantt chart
+	for(int i = 0; i < ranCPU.getCount(); i++){
+		
+		cout << setw(5) << cpuTime << setw(9) << "|||||" << setw(5) << (*cpuPIDs) << "\n";
+		for(int k = 1; k <(*runTimes); k++){
+			cout << setw(14) << "|||||";
+			cout << "\n";
+		}		
+		cpuTime += (*runTimes);
+		runTimes++;
+		cpuPIDs++;		
+	}
+
+	cout << "\n";
 	//Print out the process results, PID, total waiting time and total runtime
 	for(vector<PCB*>::iterator it = pcbs.begin(); it != pcbs.end(); ++it){
 		turnAround += (*it)->getTotalTime();
@@ -92,24 +110,7 @@ int main (){
 	cout << "The waiting time is: " << fixed << setprecision(2) << ((float)avgWait / pcbs.size()) << " time units per process on average\n";
 	cout << "The turnaround time is: " <<  fixed << setprecision(2) << ((float)turnAround / pcbs.size()) << "time units per process on average\n";
 
-	cout<< "\n\n";
-
-	int cpuTime = 0;
-	deque<int>::iterator runTimes = ranCPU.getRuntimes();
-	deque<int>::iterator cpuPIDs = ranCPU.getPID();
-	//Iterates through the list of run processes, printing their runtimes.
-	for(int i = 0; i < ranCPU.getCount(); i++){
-		cout.fill(' ');
-		cout << "Time: ";
-		cout << setw(5) << cpuTime;
-		cout << " PID: ";
-		cout << setw(5) << (*cpuPIDs);
-		cout <<" CPU burst length: ";
-		cout << setw(5) << (*runTimes) << "\n";		
-		cpuTime += (*runTimes);
-		runTimes++;
-		cpuPIDs++;		
-	}
+	cout<< "\n";
 	cout << "\nAll processes finished execution at time " << cpuTime << "\n";
 	return 0;
 }
