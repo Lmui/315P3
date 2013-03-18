@@ -113,10 +113,11 @@ int main (){
 	cout << "\n";
 
 	//Print out the CPU utilization statistics
-	cout << "The throughput is: " << fixed << setprecision(2) << ((float)ranCPU.getTime() / pcbs.size()) << " CPU time units per process on average\n";
-	cout << "The waiting time is: " << fixed << setprecision(2) << ((float)avgWait / pcbs.size()) << " time units per process on average\n";
-	cout << "The turnaround time is: " <<  fixed << setprecision(2) << ((float)turnAround / pcbs.size()) << " time units per process on average\n";
+	cout << "The average waiting time is: " << fixed << setprecision(2) << ((float)avgWait / pcbs.size()) << " time units per process\n";
+	cout << "The throughput is: " << fixed << setprecision(2) << ((float)pcbs.size() / ranCPU.getTime()) << " processes per time unit\n";
+	cout << "The average turnaround time is: " <<  fixed << setprecision(2) << ((float)turnAround / pcbs.size()) << " time units per process\n";
 
 	cout << "\nAll processes finished execution at time " << cpuTime << "\n";
+	system("PAUSE");
 	return 0;
 }
