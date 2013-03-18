@@ -48,7 +48,7 @@ int main (){
 
 	cin >> select;
 
-	cout << "\nChoice " << select << " selected, calculating\n";
+	cout << "\nChoice " << select << " selected, calculating\n\n";
 
 	if(select == '1'){
 		ranCPU = fifo("fifo", pcbs);
@@ -57,16 +57,16 @@ int main (){
 		ranCPU = fifo("RR", pcbs);
 	}
 	else if(select == '3'){
-		priority("with", pcbs);
+		ranCPU = priority("with", pcbs);
 	}
 	else if(select == '4'){
-		priority("without",pcbs);
+		ranCPU = priority("without",pcbs);
 	}
 	else if(select == '5'){
 		ranCPU = sjf_spb("sjf", pcbs);
 	}
 	else if(select == '6'){
-		sjf_spb("spb", pcbs);
+		ranCPU = sjf_spb("spb", pcbs);
 	}
 	else {
 		cout << "Invalid choice, the program is now exiting\n";
@@ -74,14 +74,17 @@ int main (){
 		return 0;
 	}	
 
+	//Below is the code used to draw the results
+
 	cout << "\n====================================================================\n" << "RESULTS\n";
 	cout << "====================================================================\n\n";	
 
 	int cpuTime = 0;
 	deque<int>::iterator runTimes = ranCPU.getRuntimes();
 	deque<int>::iterator cpuPIDs = ranCPU.getPID();	
+	
+	//Iterate through the list of run processes, printing their runtimes as a vertical gantt chart
 	cout << "   Time Progress PID\n\n";
-	//Iterates through the list of run processes, printing their runtimes as a vertical gantt chart
 	for(int i = 0; i < ranCPU.getCount(); i++){
 		
 		cout << setw(5) << cpuTime << setw(9) << "|||||" << setw(5) << (*cpuPIDs) << "\n";
@@ -93,8 +96,8 @@ int main (){
 		runTimes++;
 		cpuPIDs++;		
 	}
-
 	cout << "\n";
+
 	//Print out the process results, PID, total waiting time and total runtime
 	for(vector<PCB*>::iterator it = pcbs.begin(); it != pcbs.end(); ++it){
 		turnAround += (*it)->getTotalTime();
@@ -105,12 +108,11 @@ int main (){
 
 	cout << "\n";
 
-	//Throughput
+	//Print out the CPU utilization statistics
 	cout << "The throughput is: " << fixed << setprecision(2) << ((float)ranCPU.getTime() / pcbs.size()) << " CPU time units per process on average\n";
 	cout << "The waiting time is: " << fixed << setprecision(2) << ((float)avgWait / pcbs.size()) << " time units per process on average\n";
 	cout << "The turnaround time is: " <<  fixed << setprecision(2) << ((float)turnAround / pcbs.size()) << " time units per process on average\n";
 
-	cout<< "\n";
 	cout << "\nAll processes finished execution at time " << cpuTime << "\n";
 	return 0;
 }

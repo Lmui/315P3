@@ -3,13 +3,16 @@
 #include <string>
 #include <vector>
 #include "Header.h"
+#include "CPU.h"
+#include "PCB.h"
 
 using namespace std;
  
-void priority(string args, vector<PCB*> pcbs){
+CPU priority(string args, vector<PCB*> pcbs){
+	CPU runningCPU;
 	if(args == "with"){
 	}
 	else {
 	}
-	return;
+	return runningCPU;
 }

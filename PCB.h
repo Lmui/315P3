@@ -27,6 +27,7 @@ public:
 	int getTimeWaiting(void);
 	int getTotalTime(void);	
 	bool shouldDie(void);
+	float getSPB(void);
 
 	//Mutators
 	void incPRIO(int);
@@ -38,6 +39,7 @@ public:
 	void decCPUburst(int);
 	void setNextRunTime(int);
 	void popBursts(void);
+	void setSPB(float alpha, int burstlength);
 
 private:
 
@@ -52,12 +54,13 @@ private:
 
 	//Amount of time spent waiting in the ready Queue
 	int timeWaiting;
-
 	//Amount of time since the process started executing
 	int totalTime;
-
 	//The time at which the process returns to the ready queue. Is synchronized with the time variable within a CPU. It is initialized to TARQ
 	int nextRunTime;
+	//The shortest previous burst
+	float SPB;
+	//Queues for the lengths of cpu/io bursts
 	deque<int> cpuBurst;
 	deque<int> ioBurst;
 

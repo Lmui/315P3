@@ -52,18 +52,19 @@ int CPU::getTime(void){
 }
 
 //Returns an iterator that iterates through the PID deque
-deque<int>::iterator CPU::getPID(void){
-	
+deque<int>::iterator CPU::getPID(void){	
 	deque<int>::iterator PIDs = this->PIDs.begin();
 	return PIDs;
 }
 
 //Returns an iterator that iterates through the CPU runtime deque
 deque<int>::iterator CPU::getRuntimes(void){
-
 	deque<int>::iterator runTimes = this->runtime.begin();
 	return runTimes;
+}
 
+int CPU::getLastRuntime(void){
+	return this->runtime.back();
 }
 
 int CPU::getCount(void){

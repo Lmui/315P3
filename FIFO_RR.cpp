@@ -12,7 +12,7 @@ using namespace std;
 CPU fifo(string args, vector<PCB*> pcbs){
 
 	CPU runningCPU;
-	int quantum;	
+	int quantum = 1;	
 	deque<PCB*> readyQueue;	
 	int deathCount;	
 

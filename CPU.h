@@ -21,6 +21,7 @@ public:
 	int getCount(void);
 	deque<int>::iterator getPID(void);
 	deque<int>::iterator getRuntimes(void);
+	int getLastRuntime(void);
 
 
 	void run(PCB* process, int runtime);

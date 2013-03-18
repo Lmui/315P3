@@ -22,6 +22,7 @@ PCB::PCB(){
 	this -> TNCPU = 1;
 	this -> cpuBurst.push_back(1);
 	this -> nextRunTime = this->TARQ;
+	this -> SPB = 1;
 }
 
 //Requires that the number of distinct inputs in s be at least five and that the total distinct inputs be 2*TNCPU +3
@@ -33,10 +34,11 @@ PCB::PCB(string process){
 	char* proc = new char [process.length()+1];
 	strcpy(proc, process.c_str());
 
-	this-> timeWaiting = 0;
-	this-> totalTime = 0;
-	this-> inReadyQ = false;
-	this-> isAlive = true;
+	this -> timeWaiting = 0;
+	this -> totalTime = 0;
+	this -> inReadyQ = false;
+	this -> isAlive = true;
+	this -> SPB = 1;
 
 	/*
 	Parse the initial arguments.
@@ -132,7 +134,10 @@ bool PCB::shouldDie(){
 		return false;
 	}
 }
-
+//Returns the average PB of the process
+float PCB::getSPB(){
+	return this->SPB;
+}
 //Mutators 
 
 //Increment the priority of the process
@@ -179,4 +184,8 @@ void PCB::popBursts(void){
 	else{
 		this->ioBurst.pop_front();
 	}
+}
+//Set the PB variable according to the formula (alpha)*(currentburstlength)+(1-alpha)*(PB)
+void PCB::setSPB(float alpha, int burstlength){
+	this->SPB = ((alpha*burstlength)+((1-alpha)*this->SPB));
 }
