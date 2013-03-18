@@ -11,7 +11,7 @@ using namespace std;
 
 
 static bool compareTimes(PCB* one, PCB* two){
-	if(one->getNextStart() < two->getNextStart()){
+	if(one->getNextRunTime() < two->getNextRunTime()){
 		return true;
 	}
 	else
@@ -28,14 +28,21 @@ void fifo(string args, vector<PCB*> pcbs){
 			for(int i = 0; i < pcbs.size(); i++){
 
 				//If it can be run at this point in time and is not currently in the ready queue, add it to the ready queue.
-				if(!pcbs[i]->isInReady() && pcbs[i]->getNextStart() < runningCPU.getTime()){
+				//The ready queue should always have the first running object at the front of the queue. The order of all other elements is not set.
+				if(!pcbs[i]->isInReady() && pcbs[i]->getNextRunTime() < runningCPU.getTime()){
+					
 					pcbs[i]->setReadyQ();
-					readyQueue.push_back(pcbs[i]);
+					if(pcbs[i]->getNextRunTime() < readyQueue.front()->getNextRunTime()){
+						readyQueue.push_front(pcbs[i]);
+					}
+					else{
+						readyQueue.push_back(pcbs[i]);
+					}
 				}
 			}
-			//Now that all runnable processes have been added to ready queue, sort them according to when they arrived in the queue.
-			//readyQueue.sort<PCB*>(compareTimes);
+
 			runningCPU.run(readyQueue.front(),readyQueue.front()->getNextRunTime());
+
 		}
 
 

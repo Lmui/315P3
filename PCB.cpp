@@ -2,20 +2,25 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <deque>
 #include "PCB.h"
 
 using namespace std;
 
 
 //Constructor
+
+//Requires that the number of distinct inputs in s be at least five and that the total distinct inputs be 2*TNCPU +3
+//Takes a string corresponding to one line in the text document and uses it to build a pcb object which consists of variables and two vectors with the lengths of each cpu/io burst
+//All variables have defaults or are initialized via the string. 
 PCB::PCB(string process){
 	char* proc = new char [process.length()+1];
 	strcpy(proc, process.c_str());
 
 	this-> timeWaiting = 0;
 	this-> totalTime = 0;
-	this-> cpuRunCount = 0;
 	this-> inReadyQ = false;
+	this-> isAlive = true;
 
 	/*
 	Parse the initial arguments.
@@ -39,41 +44,73 @@ PCB::PCB(string process){
 		this->cpuBurst.push_back(stoi(tok));
 	}
 
+	//Initialize the first run time to TARQ
+	this->nextRunTime = this->TARQ;
+
 }
 
 //Accessors
+
+//Get the process PID
 int PCB::getPID(void){
 	return this->PID;
 }
+//Get TARQ
 int PCB::getTARQ(void){
 	return this->TARQ;
 }
+//Get the number of cpubursts
 int PCB::getTNCPU(void){
 	return this-> TNCPU;
 }
+//Get the process priority
 int PCB::getPRIO(void){
 	return this->PRIO;
 }
+//Get whether or not the process is in the ready queue
 bool PCB::isInReady(void){
 	return this->inReadyQ;
 }
+//Get the length of the next CPU burst
+int PCB::getNextCPU(void){
+	return this->cpuBurst.front();
+}
+//Get the length of the next IO burst
+int PCB::getNextIO(void){
+	return this->ioBurst.front();
+}
 
-
-//returns NextRunTime, the length of the next CPU burst
+//returns NextRunTime, the time at which the process returns to the ready queue.
 int PCB::getNextRunTime(void){
 	return this->nextRunTime;
 }
 
-//Mutators (Not implemented at the moment)
+//Mutators 
+
+//Increment the priority of the process
 void PCB::incPRIO(int){
 	return;
 }
-void PCB::incTWaiting(int){
+//Increment the time that the process has been waiting
+void PCB::incTWaiting(int time){
+	this->timeWaiting += time;
 	return;
 }
-void PCB::incTTime(int){
+//Set the total amount of time that this process has been running
+void PCB::setTTime(int time){
+	this->totalTime = time;
 	return;
 }
+//Increment the time until the process can be run again
+void PCB::incNextRunTime(int time){
+	this->nextRunTime += time;
+}
+
+//Kill the process
+void PCB::killProcess(void){
+	this-> isAlive = false;
+}
+
 void PCB::setReadyQ(void){
 	this->inReadyQ = true;
 }
@@ -81,14 +118,11 @@ void PCB::unsetReadyQ(void){
 	this->inReadyQ = false;
 }
 
-//Other functions
-//Returns the time at which the process will be finished IO bursts and returned to the ready queue.
-int PCB::getNextStart(void){
-	if(this->cpuRunCount == 0){
-		return this->getTARQ();
-	}
-	else{
+void PCB::decCPUburst(int time){
+	this->cpuBurst.front() -= time;
+}
 
-	}
-
+void PCB::popBursts(void){
+	this->cpuBurst.pop_front();
+	this->cpuBurst.pop_front();
 }
