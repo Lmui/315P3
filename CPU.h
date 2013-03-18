@@ -11,19 +11,24 @@ using namespace std;
 
 class CPU {
 
+public:
 	CPU(){
 		this->time = 0;
 	}
 
-public:
-
-	void run(PCB process, int runtime);
+	void run(PCB* process, int runtime);
+	int getTime(void);
 
 
 private:
 	vector<int> runtime;
 	vector<int> PIDs;
 	int time;
+	int totalWait;
+	int totalExec;
+	float avgWait;
+	float throughput;
+	float turnaround;
 };
 
 #endif CPU_H_

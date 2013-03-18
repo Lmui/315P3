@@ -15,6 +15,7 @@ PCB::PCB(string process){
 	this-> timeWaiting = 0;
 	this-> totalTime = 0;
 	this-> cpuRunCount = 0;
+	this-> inReadyQ = false;
 
 	/*
 	Parse the initial arguments.
@@ -53,6 +54,15 @@ int PCB::getTNCPU(void){
 int PCB::getPRIO(void){
 	return this->PRIO;
 }
+bool PCB::isInReady(void){
+	return this->inReadyQ;
+}
+
+
+//returns NextRunTime, the length of the next CPU burst
+int PCB::getNextRunTime(void){
+	return this->nextRunTime;
+}
 
 //Mutators (Not implemented at the moment)
 void PCB::incPRIO(int){
@@ -63,4 +73,22 @@ void PCB::incTWaiting(int){
 }
 void PCB::incTTime(int){
 	return;
+}
+void PCB::setReadyQ(void){
+	this->inReadyQ = true;
+}
+void PCB::unsetReadyQ(void){
+	this->inReadyQ = false;
+}
+
+//Other functions
+//Returns the time at which the process will be finished IO bursts and returned to the ready queue.
+int PCB::getNextStart(void){
+	if(this->cpuRunCount == 0){
+		return this->getTARQ();
+	}
+	else{
+
+	}
+
 }

@@ -30,9 +30,9 @@ int main (){
 
 	//As long as there is data to read from the stream, add all the data to a vector of pcbs
 
-	for(int i = 0;!workload.eof();i++){
+	while(!workload.eof()){
 		string s;
-		getline(workload, s);
+		getline(workload, s);		
 		pcbs.push_back(new PCB(s));
 	}
 
