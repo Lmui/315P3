@@ -19,10 +19,13 @@ public:
 	void run(PCB* process, int runtime);
 	int getTime(void);
 
+	void setProcessCount(int);
+
 
 private:
 	vector<int> runtime;
 	vector<int> PIDs;
+	int numProcesses;
 	int time;
 	int totalWait;
 	int totalExec;

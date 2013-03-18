@@ -4,6 +4,7 @@
 #include <vector>
 #include "Header.h"
 #include "PCB.h"
+#include "CPU.h"
  
 using namespace std;
 
@@ -12,6 +13,7 @@ int main (){
 	ifstream workload;
 	string filename;
 	char select;
+	CPU result;
 	vector<PCB*> pcbs;
 	int i=0;
 
@@ -42,7 +44,7 @@ int main (){
 
 	cin >> select;
 	if(select == '1'){
-		fifo("fifo", pcbs);
+		result = fifo("fifo", pcbs);
 	}
 	else if(select == '2'){
 		fifo("RR", pcbs);

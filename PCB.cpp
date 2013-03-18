@@ -9,10 +9,25 @@ using namespace std;
 
 
 //Constructor
+//Idle constructor
+PCB::PCB(){
+	this-> isAlive = true;
+	this -> inReadyQ = false;
+	this -> timeWaiting = 0;
+	this -> totalTime = 0;
+	this -> PID = -1;
+	this -> TARQ = 0;
+	this -> PRIO = 0;
+	this -> TNCPU = 1;
+	this -> cpuBurst.push_back(1);
+	this -> nextRunTime = this->TARQ;
+}
 
 //Requires that the number of distinct inputs in s be at least five and that the total distinct inputs be 2*TNCPU +3
 //Takes a string corresponding to one line in the text document and uses it to build a pcb object which consists of variables and two vectors with the lengths of each cpu/io burst
 //All variables have defaults or are initialized via the string. 
+
+
 PCB::PCB(string process){
 	char* proc = new char [process.length()+1];
 	strcpy(proc, process.c_str());
@@ -67,17 +82,27 @@ int PCB::getTNCPU(void){
 int PCB::getPRIO(void){
 	return this->PRIO;
 }
-//Get whether or not the process is in the ready queue
+//Get whether or not the process is in the ready queue. Returns true if the process is in the ready queue and false otherwise
 bool PCB::isInReady(void){
 	return this->inReadyQ;
+}
+//Get the status of the process. Returns true if the process is alive or false if the process is dead.
+bool PCB::getLife(void){
+	return this->isAlive;
 }
 //Get the length of the next CPU burst
 int PCB::getNextCPU(void){
 	return this->cpuBurst.front();
 }
-//Get the length of the next IO burst
+//Get the length of the next IO burst, if there are no IO bursts left, return 0;
 int PCB::getNextIO(void){
-	return this->ioBurst.front();
+	if (this->ioBurst.empty()){
+		return 0;
+	}
+	else{
+		return this->ioBurst.front();
+	}
+
 }
 
 //returns NextRunTime, the time at which the process returns to the ready queue.
@@ -124,5 +149,10 @@ void PCB::decCPUburst(int time){
 
 void PCB::popBursts(void){
 	this->cpuBurst.pop_front();
-	this->cpuBurst.pop_front();
+	if(this->ioBurst.empty()){		
+		this->isAlive = false;
+	}
+	else{
+		this->ioBurst.pop_front();
+	}
 }

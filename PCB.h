@@ -11,6 +11,7 @@ class PCB {
 
 public:
 	//Constructor
+	PCB();
 	PCB(string);
 
 	//Accessors
@@ -21,6 +22,7 @@ public:
 	int getNextRunTime(void);
 	int getNextCPU(void);
 	int getNextIO(void);
+	bool getLife(void);
 	bool isInReady(void);
 
 	//Mutators

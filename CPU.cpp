@@ -27,7 +27,7 @@ void CPU::run(PCB* process, int runtime){
 		process->decCPUburst(runtime);
 		process->incNextRunTime(runtime);
 	}
-	//If the runtime is sufficient to finish the current CPU burst, pop it, and set the next run time
+	//If the runtime is sufficient to finish the current CPU burst, pop it, and set the next run time or, if there are no more IO bursts, kill the process.
 	else{
 		process->incNextRunTime(runtime + process->getNextIO());
 		process->popBursts();
@@ -43,4 +43,8 @@ void CPU::run(PCB* process, int runtime){
 
 int CPU::getTime(void){
 	return this->time;
+}
+
+void CPU::setProcessCount(int count){
+	this->numProcesses = count;
 }
