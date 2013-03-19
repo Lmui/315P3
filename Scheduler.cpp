@@ -80,7 +80,6 @@ int main (){
 	
 	else {
 		cout << "Invalid choice, the program is now exiting\n";
-		system("PAUSE");
 		return 0;
 	}	
 
@@ -124,6 +123,5 @@ int main (){
 	cout << "The average turnaround time is: " <<  fixed << setprecision(2) << ((float)turnAround / pcbs.size()) << " time units per process\n";
 
 	cout << "\nAll processes finished execution at time " << cpuTime << "\n";
-	system("PAUSE");
 	return 0;
 }
