@@ -30,7 +30,6 @@ int main (){
 	if(workload.fail())
 	{
 		cout << "There was an error opening " << filename << "\n";
-		system("PAUSE");
 		return 0;
 	}
 
@@ -43,14 +42,14 @@ int main (){
 	}
 
 	//Prompt the user to select an algorithm to analyze the data
-	cout	<< "Please select an algorithm to analyze the data: \n" 
+	cout	<< "Please select an algorithm to analyze the data: \n\n" 
 			<< "1. FIFO (First In First Out)\n" 
 			<< "2. Round Robin with quantum time\n" 
 			<< "3. Priority (With Rude Preemption)\n" 
 			<< "4. Priority (With Polite Preemption)\n"
 			<< "5. Priority (Without Preemption)\n" 
 			<< "6. SJF (Shortest Job First)\n" 
-			<< "7. SPB (Shortest Previous Burst)\n";
+			<< "7. SPB (Shortest Previous Burst)\n\nYour choice: ";
 
 	cin >> select;
 
