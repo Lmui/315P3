@@ -16,7 +16,7 @@ CPU sjf_spb(string args, vector<PCB*> pcbs){
 	int deathCount;
 	float alpha;
 
-	if(args = "spb" ) {
+	if(args == "spb" ) {
 		string s;
 
 		//Prompt the user for a value of alpha
@@ -92,7 +92,7 @@ CPU sjf_spb(string args, vector<PCB*> pcbs){
 		//Run the process and then remove it from the ready queue. The time alotted is as much time as the process needs to finish
 		//the current CPU burst
 		runningCPU.run(readyQueue.front(),readyQueue.front()->getNextCPU());
-		if(args = "spb") {
+		if(args == "spb") {
 			readyQueue.front()->setSPB(alpha, runningCPU.getLastRuntime());
 		}
 		readyQueue.pop_front();
