@@ -59,8 +59,8 @@ CPU sjf_spb(string args, vector<PCB*> pcbs){
 				PCB* idle = new PCB();
 				readyQueue.push_front(idle);
 			}
-			//Run the process and then remove it from the ready queue. The time alotted is either as much time as the process needs to finish
-			//the current CPU burst or the time alotted by the user
+			//Run the process and then remove it from the ready queue. The time alotted is as much time as the process needs to finish
+			//the current CPU burst
 			runningCPU.run(readyQueue.front(),readyQueue.front()->getNextCPU());			
 			readyQueue.pop_front();
 
@@ -124,8 +124,8 @@ CPU sjf_spb(string args, vector<PCB*> pcbs){
 				PCB* idle = new PCB();
 				readyQueue.push_front(idle);
 			}
-			//Run the process and then remove it from the ready queue. The time alotted is either as much time as the process needs to finish
-			//the current CPU burst or the time alotted by the user
+			//Run the process and then remove it from the ready queue. The time alotted is as much time as the process needs to finish
+			//the current CPU burst
 			runningCPU.run(readyQueue.front(),readyQueue.front()->getNextCPU());
 			readyQueue.front()->setSPB(alpha, runningCPU.getLastRuntime());
 			readyQueue.pop_front();

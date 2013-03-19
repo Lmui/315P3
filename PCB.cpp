@@ -47,7 +47,6 @@ PCB::PCB(string process){
 	*/
 	char* tok = strtok(proc, " ");
 	this->PID = stoi(tok);
-
 	tok = strtok(NULL, " ");
 	this->TARQ = stoi(tok);
 	tok = strtok(NULL, " ");

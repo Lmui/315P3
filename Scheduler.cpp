@@ -43,8 +43,14 @@ int main (){
 	}
 
 	//Prompt the user to select an algorithm to analyze the data
-	cout << "Please select an algorithm to analyze the data: \n" << "1. FIFO (First In First Out)\n" << "2. Round Robin with quantum time\n" 
-		 << "3. Priority (With Rude Preemption)\n" << "4. Priority (With Polite Preemption)\n"<< "5. Priority (Time Sliced)\n" << "6. SJF (Shortest Job First)\n" << "7. SPB (Shortest Previous Burst)\n";
+	cout	<< "Please select an algorithm to analyze the data: \n" 
+			<< "1. FIFO (First In First Out)\n" 
+			<< "2. Round Robin with quantum time\n" 
+			<< "3. Priority (With Rude Preemption)\n" 
+			<< "4. Priority (With Polite Preemption)\n"
+			<< "5. Priority (Without Preemption)\n" 
+			<< "6. SJF (Shortest Job First)\n" 
+			<< "7. SPB (Shortest Previous Burst)\n";
 
 	cin >> select;
 
@@ -80,8 +86,9 @@ int main (){
 
 	//Below is the code used to draw the results
 
-	cout << "\n====================================================================\n" << "RESULTS\n";
-	cout << "====================================================================\n\n";	
+	cout	<< "\n====================================================================\n" 
+			<< "RESULTS\n"
+			<< "====================================================================\n\n";	
 
 	int cpuTime = 0;
 	deque<int>::iterator runTimes = ranCPU.getRuntimes();
@@ -90,7 +97,6 @@ int main (){
 	//Iterate through the list of run processes, printing their runtimes as a vertical gantt chart
 	cout << "   Time Progress PID\n\n";
 	for(int i = 0; i < ranCPU.getCount(); i++){
-		
 		cout << setw(5) << cpuTime << setw(9) << "|||||" << setw(5) << (*cpuPIDs) << "\n";
 		for(int k = 1; k <(*runTimes); k++){
 			cout << setw(14) << "|||||";
