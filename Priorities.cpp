@@ -79,10 +79,11 @@ CPU priority(string args, vector<PCB*> pcbs){
 				runningCPU.run(readyQueue.front(), quantum);
 			}
 		}
+		else {
+			//not implemented yet
+			//runningCPU.run(readyQueue.front(), 1);
+		}
 		readyQueue.pop_front();
-	}
-	else if ( args == "with_rude" ) {
-		cout << "Priority with rude pre-emp is not being implemented yet" << endl;
 	}
 	return runningCPU;
 }
