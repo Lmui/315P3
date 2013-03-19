@@ -55,10 +55,8 @@ CPU sjf_spb(string args, vector<PCB*> pcbs){
 			for(int k = 1; k < readyQueue.size();k++){
 
 				if(readyQueue.front()->getNextCPU() > readyQueue.at(k)->getNextCPU()){
-					readyQueue.push_back(readyQueue.front());
-					readyQueue.pop_front();
-					readyQueue.push_front(*(readyQueue.begin()+k-1));
-					readyQueue.erase(readyQueue.begin()+k);
+					readyQueue.push_front(*(readyQueue.begin()+k));
+					readyQueue.erase(readyQueue.begin()+k+1);
 				}
 
 			}
@@ -69,10 +67,8 @@ CPU sjf_spb(string args, vector<PCB*> pcbs){
 			for(int k = 1; k < readyQueue.size();k++){
 
 				if(readyQueue.front()->getSPB() > readyQueue.at(k)->getSPB()){
-					readyQueue.push_back(readyQueue.front());
-					readyQueue.pop_front();
-					readyQueue.push_front(*(readyQueue.begin()+k-1));
-					readyQueue.erase(readyQueue.begin()+k);
+					readyQueue.push_front(*(readyQueue.begin()+k));
+					readyQueue.erase(readyQueue.begin()+k+1);
 				}
 
 			}

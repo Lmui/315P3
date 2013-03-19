@@ -48,11 +48,8 @@ CPU fifo(string args, vector<PCB*> pcbs){
 		//Find the element with the earliest runtime and put it at the front of the ready queue.
 		for(int k = 1; k < readyQueue.size();k++){
 			if(readyQueue.front()->getNextRunTime() > readyQueue.at(k)->getNextRunTime()){
-				readyQueue.push_back(readyQueue.front());
-				readyQueue.pop_front();
-				readyQueue.push_front(*(readyQueue.begin()+k-1));
-				readyQueue.erase(readyQueue.begin()+k);
-
+				readyQueue.push_front(*(readyQueue.begin()+k));
+				readyQueue.erase(readyQueue.begin()+k+1);
 			}
 
 		}	
