@@ -39,6 +39,7 @@ PCB::PCB(string process){
 	this -> inReadyQ = false;
 	this -> isAlive = true;
 	this -> SPB = 1;
+	this -> Age = 0;
 
 	/*
 	Parse the initial arguments.
@@ -137,7 +138,16 @@ bool PCB::shouldDie(){
 float PCB::getSPB(){
 	return this->SPB;
 }
+//Returns the age of the process
+int PCB::getAge(){
+	return this->Age;
+}
+
+
+//==========================
 //Mutators 
+//==========================
+
 
 //Increment the priority of the process
 void PCB::incPRIO(int){
@@ -187,4 +197,12 @@ void PCB::popBursts(void){
 //Set the PB variable according to the formula (alpha)*(currentburstlength)+(1-alpha)*(PB)
 void PCB::setSPB(float alpha, int burstlength){
 	this->SPB = ((alpha*burstlength)+((1-alpha)*this->SPB));
+}
+//Increment the Age by one
+void PCB::incAge(){
+	this->Age++;
+}
+//Set the Age to zero
+void PCB::resetAge(){
+	this->Age = 0;
 }

@@ -28,6 +28,7 @@ public:
 	int getTotalTime(void);	
 	bool shouldDie(void);
 	float getSPB(void);
+	int getAge(void);
 
 	//Mutators
 	void incPRIO(int);
@@ -40,6 +41,8 @@ public:
 	void setNextRunTime(int);
 	void popBursts(void);
 	void setSPB(float alpha, int burstlength);
+	void incAge(void);
+	void resetAge(void);
 
 private:
 
@@ -51,6 +54,9 @@ private:
 	int PID;
 	int TARQ;
 	int PRIO;
+
+	//Should always be a positive number. Counts the number of times it was passed over
+	int Age;
 
 	//Amount of time spent waiting in the ready Queue
 	int timeWaiting;

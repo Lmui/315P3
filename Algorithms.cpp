@@ -14,27 +14,40 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 	deque<PCB*> readyQueue;	
 	int deathCount;
 	float alpha;
+	int ageSpeed;
 
+	//Prompt the user for a value of quantum
 	if(args == "RR" || args == "with_pol"){
-		string s;
 
-		//Prompt the user for a value of quantum
+		string s;		
 		do{
 			cout << "Please enter a positive integer as the time alotted to each time slice: ";
 			cin >> s;
 			quantum = stoi(s);
 		}while(quantum < 1);
 	}
+	
+	//Prompt the user for a value of alpha
 	else if(args == "spb" ) {
 		string s;
-
-		//Prompt the user for a value of alpha
 		do{
 			cout << "Please enter a value 0 < x <= 1 for alpha to weigh the value of the bursts: ";
 			cin >> s;
 			alpha = stof(s);
 		}while(alpha <= 0 || alpha > 1);
 	}
+
+	//Prompt the user for the speed of aging
+	if(args != "fifo" && args != "RR"){
+		string s;		
+		do{
+			cout << "\nPlease enter a positive integer as the speed of aging";
+			cin >> s;
+			ageSpeed = stoi(s);
+		}while(ageSpeed < 1);
+	}
+	
+
 
 	while(1){
 		deathCount = 0;
@@ -58,6 +71,7 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 			}
 		}
 
+		//Find the next process to be run and put it at the beginning of the readyqueue
 		for(int k = 1; k < readyQueue.size();k++){
 			if( args == "fifo" || args == "RR" ) {
 				if(readyQueue.front()->getNextRunTime() > readyQueue.at(k)->getNextRunTime()){
@@ -81,6 +95,17 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 					readyQueue.push_front(*(readyQueue.begin()+k));
 					readyQueue.erase(readyQueue.begin()+k+1);
 					readyQueue.erase(readyQueue.begin()+1);
+				}
+			}
+		}
+
+		//Age all the processes
+		if(args != "fifo" && args != "RR"){
+			for(int k = 1; k <readyQueue.size(); k++){
+				readyQueue.at(k)->incAge();
+				if(readyQueue.at(k)->getAge() == ageSpeed){
+					//Run the aging mechanism
+					readyQueue.at(k)->resetAge();
 				}
 			}
 		}
