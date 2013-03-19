@@ -13,6 +13,7 @@ CPU priority(string args, vector<PCB*> pcbs){
 	int quantum = 1;
 	deque<PCB*> readyQueue;
 	int deathCount;
+	int runTime;
 
 	if(args == "with_pol"){
 		string s;
@@ -77,9 +78,24 @@ CPU priority(string args, vector<PCB*> pcbs){
 				runningCPU.run(readyQueue.front(), quantum);
 			}
 		}
-		else {
-			//needs to be cleaned up (Gantt chart wise)
-			runningCPU.run(readyQueue.front(), 1);
+		else { //if( args == "with_rude" )
+			int nextRunTime = numeric_limits<int>::max();
+
+			// check to see the next 'happening', whether it be the next TARQ, or a process coming out of I/O burst
+			// get the nearest 'happening' that is greater than current time
+			for(int i = 0; i < pcbs.size(); i++){
+				if( nextRunTime > pcbs[i]->getNextRunTime() && runningCPU.getTime() < pcbs[i]->getNextRunTime() ) {
+					nextRunTime = pcbs[i]->getNextRunTime();
+				}
+			}
+			// the time from now to the nearest 'happening' is how long we will run the process
+			runTime = nextRunTime - runningCPU.getTime();
+			if(readyQueue.front()->getNextCPU() < runTime) {
+				runningCPU.run(readyQueue.front(), readyQueue.front()->getNextCPU());
+			}
+			else {
+				runningCPU.run(readyQueue.front(), runTime);
+			}
 		}
 		readyQueue.pop_front();
 	}
