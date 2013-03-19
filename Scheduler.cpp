@@ -57,25 +57,25 @@ int main (){
 	cout << "\nChoice " << select << " selected, calculating\n\n";
 
 	if(select == '1'){
-		ranCPU = fifo("fifo", pcbs);
+		ranCPU = Algorithms("fifo", pcbs);
 	}
 	else if(select == '2'){
-		ranCPU = fifo("RR", pcbs);
+		ranCPU = Algorithms("RR", pcbs);
 	}
 	else if(select == '3'){
-		ranCPU = priority("with_rude", pcbs);
+		ranCPU = Algorithms("with_rude", pcbs);
 	}
 	else if(select == '4'){
-		ranCPU = priority("with_pol",pcbs);
+		ranCPU = Algorithms("with_pol",pcbs);
 	}
 	else if(select == '5'){
-		ranCPU = priority("without",pcbs);
+		ranCPU = Algorithms("without",pcbs);
 	}
 	else if(select == '6'){
-		ranCPU = sjf_spb("sjf", pcbs);
+		ranCPU = Algorithms("sjf", pcbs);
 	}
 	else if(select == '7'){
-		ranCPU = sjf_spb("spb", pcbs);
+		ranCPU = Algorithms("spb", pcbs);
 	}
 	
 	else {
