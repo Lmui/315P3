@@ -48,10 +48,8 @@ CPU priority(string args, vector<PCB*> pcbs){
 		//Find the element with the highest priority (lower number = higher priority) and put it at the front of the ready queue.
 		for(int k = 1; k < readyQueue.size();k++){
 			if(readyQueue.front()->getPRIO() > readyQueue.at(k)->getPRIO()){
-				readyQueue.push_back(readyQueue.front());
-				readyQueue.pop_front();
-				readyQueue.push_front(*(readyQueue.begin()+k-1));
-				readyQueue.erase(readyQueue.begin()+k);
+				readyQueue.push_front(*(readyQueue.begin()+k));
+				readyQueue.erase(readyQueue.begin()+k+1);
 			}
 		}
 
@@ -80,8 +78,8 @@ CPU priority(string args, vector<PCB*> pcbs){
 			}
 		}
 		else {
-			//not implemented yet
-			//runningCPU.run(readyQueue.front(), 1);
+			//needs to be cleaned up (Gantt chart wise)
+			runningCPU.run(readyQueue.front(), 1);
 		}
 		readyQueue.pop_front();
 	}
