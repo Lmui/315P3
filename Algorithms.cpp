@@ -75,26 +75,26 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 		for(int k = 1; k < readyQueue.size();k++){
 			if( args == "fifo" || args == "RR" ) {
 				if(readyQueue.front()->getNextRunTime() > readyQueue.at(k)->getNextRunTime()){
-					readyQueue.push_back((readyQueue.front()));
+					//readyQueue.push_back(readyQueue.front());
 					readyQueue.push_front(*(readyQueue.begin()+k));
 					readyQueue.erase(readyQueue.begin()+k+1);
-					readyQueue.erase(readyQueue.begin()+1);
+					//readyQueue.erase(readyQueue.begin()+1);
 				}
 			}
 			else if( args == "with_rude" || args == "with_pol" || args == "without" ) {
 				if(readyQueue.front()->getPRIO() > readyQueue.at(k)->getPRIO()){
-					readyQueue.push_back((readyQueue.front()));
+					//readyQueue.push_back(*(readyQueue.front());
 					readyQueue.push_front(*(readyQueue.begin()+k));
 					readyQueue.erase(readyQueue.begin()+k+1);
-					readyQueue.erase(readyQueue.begin()+1);
+					//readyQueue.erase(readyQueue.begin()+1);
 				}
 			} 
 			else { //if( args == "sjf" || args == "spb" ) {
 				if(readyQueue.front()->getNextCPU() > readyQueue.at(k)->getNextCPU()){
-					readyQueue.push_back((readyQueue.front()));
+					//readyQueue.push_back((readyQueue.front()));
 					readyQueue.push_front(*(readyQueue.begin()+k));
 					readyQueue.erase(readyQueue.begin()+k+1);
-					readyQueue.erase(readyQueue.begin()+1);
+					//readyQueue.erase(readyQueue.begin()+1);
 				}
 			}
 		}
