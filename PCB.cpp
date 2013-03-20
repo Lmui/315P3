@@ -150,7 +150,8 @@ int PCB::getAge(){
 
 
 //Increment the priority of the process
-void PCB::incPRIO(int){
+void PCB::incPRIO(void){
+	this->PRIO--;
 	return;
 }
 //Increment the time that the process has been waiting
@@ -205,4 +206,7 @@ void PCB::incAge(){
 //Set the Age to zero
 void PCB::resetAge(){
 	this->Age = 0;
+}
+void PCB::ageSPB(){
+	this->SPB = this->SPB*0.7;
 }

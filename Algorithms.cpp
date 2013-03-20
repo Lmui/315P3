@@ -102,6 +102,14 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 				if(readyQueue.at(k)->getAge() == ageSpeed){
 					//Run the aging mechanism
 					readyQueue.at(k)->resetAge();
+					if(args == "with_rude" || args == "with_pol" || args == "without"){
+						//decrement the priority
+						readyQueue.at(k)->incPRIO();
+					}
+					if(args == "spb"){
+						//reduce the apparent length of the previous burst
+						readyQueue.at(k)->ageSPB();
+					}
 				}
 			}
 		}

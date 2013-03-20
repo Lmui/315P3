@@ -31,7 +31,7 @@ public:
 	int getAge(void);
 
 	//Mutators
-	void incPRIO(int);
+	void incPRIO(void);
 	void incTWaiting(int);
 	void setTTime(int);
 	void setReadyQ(void);
@@ -43,6 +43,7 @@ public:
 	void setSPB(float alpha, int burstlength);
 	void incAge(void);
 	void resetAge(void);
+	void ageSPB(void);
 
 private:
 
