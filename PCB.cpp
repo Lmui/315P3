@@ -23,6 +23,7 @@ PCB::PCB(){
 	this -> cpuBurst.push_back(1);
 	this -> nextRunTime = this->TARQ;
 	this -> SPB = 1;
+	this -> sjf_prio = 0;
 }
 
 //Requires that the number of distinct inputs in s be at least five and that the total distinct inputs be 2*TNCPU +3
@@ -40,6 +41,7 @@ PCB::PCB(string process){
 	this -> isAlive = true;
 	this -> SPB = 1;
 	this -> Age = 0;
+	this -> sjf_prio = 0;
 
 	/*
 	Parse the initial arguments.
@@ -143,6 +145,10 @@ float PCB::getSPB(){
 int PCB::getAge(){
 	return this->Age;
 }
+//Returns priority value for sjf
+int PCB::getSJF_PRIO(){
+	return this->sjf_prio;
+}
 
 
 //==========================
@@ -152,7 +158,9 @@ int PCB::getAge(){
 
 //Increment the priority of the process
 void PCB::incPRIO(void){
-	this->PRIO--;
+	if( PRIO > 0 ) {
+		this->PRIO--;
+	}
 	return;
 }
 //Increment the time that the process has been waiting
@@ -210,4 +218,10 @@ void PCB::resetAge(){
 }
 void PCB::ageSPB(){
 	this->SPB = this->SPB*0.7;
+}
+//Increment priority value for sjf
+void PCB::incSJF_PRIO(){
+	if( this->sjf_prio < this->getNextCPU() ) {
+		this->sjf_prio++;
+	}
 }

@@ -75,7 +75,7 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 		}
 
 		//Find the next process to be run and put it at the beginning of the readyqueue
-		for(int k = 1; k < readyQueue.size();k++){
+		for(int k = readyQueue.size() - 1; k > 0; k--){
 			if( args == "fifo" || args == "RR" ) {
 				if(readyQueue.front()->getNextRunTime() > readyQueue.at(k)->getNextRunTime()){
 					readyQueue.push_front(*(readyQueue.begin()+k));
@@ -89,8 +89,14 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 					readyQueue.erase(readyQueue.begin()+k+1);
 				}
 			} 
-			else { //if( args == "sjf" || args == "spb" ) {
+			else if( args == "spb" ) {
 				if(readyQueue.front()->getNextCPU() > readyQueue.at(k)->getNextCPU()){
+					readyQueue.push_front(*(readyQueue.begin()+k));
+					readyQueue.erase(readyQueue.begin()+k+1);
+				}
+			}
+			else { //if( args == "sjf" ) {
+				if(readyQueue.front()->getNextCPU() - readyQueue.front()->getSJF_PRIO() > readyQueue.at(k)->getNextCPU() - readyQueue.at(k)->getSJF_PRIO()){
 					readyQueue.push_front(*(readyQueue.begin()+k));
 					readyQueue.erase(readyQueue.begin()+k+1);
 				}
@@ -111,6 +117,10 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 					if(args == "spb"){
 						//reduce the apparent length of the previous burst
 						readyQueue.at(k)->ageSPB();
+					}
+					if(args == "sjf") {
+						//increase the priority value for sjf
+						readyQueue.at(k)->incSJF_PRIO();
 					}
 				}
 			}
@@ -152,7 +162,6 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 				runningCPU.run(readyQueue.front(),readyQueue.front()->getNextCPU());
 			}
 			else{
-
 				runningCPU.run(readyQueue.front(), quantum);
 			}
 		}
@@ -162,8 +171,6 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 		}
 		readyQueue.pop_front();
 	}
-	cout << "error here!";
 	delete idle;
-	cout << "nvm";
 	return runningCPU;
 }

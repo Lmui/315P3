@@ -29,6 +29,7 @@ public:
 	bool shouldDie(void);
 	float getSPB(void);
 	int getAge(void);
+	int getSJF_PRIO(void);
 
 	//Mutators
 	void incPRIO(void);
@@ -44,6 +45,7 @@ public:
 	void incAge(void);
 	void resetAge(void);
 	void ageSPB(void);
+	void PCB::incSJF_PRIO(void);
 
 private:
 
@@ -70,6 +72,8 @@ private:
 	//Queues for the lengths of cpu/io bursts
 	deque<int> cpuBurst;
 	deque<int> ioBurst;
+	//Priority value for shortest job first
+	int sjf_prio;
 
 };
 
