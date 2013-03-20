@@ -31,7 +31,10 @@ void CPU::run(PCB* process, int runtime){
 	//If the runtime is sufficient to finish the current CPU burst, pop it, and set the next run time or, if there are no more IO bursts, kill the process.
 	else{
 		process->setNextRunTime(this->getTime()+runtime + process->getNextIO());
-		process->popBursts();
+		//Pop the CPU/IO q's if it is not the idle process
+		if(process->getPID() >= 0){
+			process->popBursts();
+		}
 		if(process->shouldDie()){
 			process->killProcess();
 		}

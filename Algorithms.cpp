@@ -10,12 +10,14 @@
 using namespace std;
 
 CPU Algorithms(string args, vector<PCB*> pcbs){
+
 	CPU runningCPU;
 	int quantum = 1;	
 	deque<PCB*> readyQueue;	
 	int deathCount;
 	float alpha;
-	int ageSpeed;
+	int ageSpeed;	
+	PCB* idle = new PCB();
 
 	//Prompt the user for a value of quantum
 	if(args == "RR" || args == "with_pol"){
@@ -27,7 +29,7 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 			quantum = stoi(s);
 		}while(quantum < 1);
 	}
-	
+
 	//Prompt the user for a value of alpha
 	else if(args == "spb" ) {
 		string s;
@@ -47,7 +49,7 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 			ageSpeed = stoi(s);
 		}while(ageSpeed < 1);
 	}
-	
+
 
 
 	while(1){
@@ -121,7 +123,6 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 
 		//If there are still living processes, but none of them can be run, run an idle process for one unit of time
 		if(readyQueue.empty()){
-			PCB* idle = new PCB();
 			readyQueue.push_front(idle);
 		}
 
@@ -151,6 +152,7 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 				runningCPU.run(readyQueue.front(),readyQueue.front()->getNextCPU());
 			}
 			else{
+
 				runningCPU.run(readyQueue.front(), quantum);
 			}
 		}
@@ -160,5 +162,8 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 		}
 		readyQueue.pop_front();
 	}
+	cout << "error here!";
+	delete idle;
+	cout << "nvm";
 	return runningCPU;
 }

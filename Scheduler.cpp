@@ -34,7 +34,6 @@ int main (){
 	}
 
 	//As long as there is data to read from the stream, add all the data to a vector of pcbs
-
 	while(!workload.eof()){
 		string s;
 		getline(workload, s);		
@@ -122,5 +121,6 @@ int main (){
 	cout << "The average turnaround time is: " <<  fixed << setprecision(2) << ((float)turnAround / pcbs.size()) << " time units per process\n";
 
 	cout << "\nAll processes finished execution at time " << cpuTime << "\n";
+
 	return 0;
 }

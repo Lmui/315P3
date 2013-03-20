@@ -63,6 +63,7 @@ PCB::PCB(string process){
 		this->cpuBurst.push_back(stoi(tok));
 	}
 
+	delete[] proc;
 	//Initialize the first run time to TARQ
 	this->nextRunTime = this->TARQ;
 
