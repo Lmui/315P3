@@ -217,7 +217,7 @@ void PCB::resetAge(){
 	this->Age = 0;
 }
 void PCB::ageSPB(){
-	this->SPB = this->SPB*0.7;
+	this->SPB = this->SPB*0.8;
 }
 //Increment priority value for sjf
 void PCB::incSJF_PRIO(){
