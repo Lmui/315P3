@@ -122,5 +122,9 @@ int main (){
 
 	cout << "\nAll processes finished execution at time " << cpuTime << "\n";
 
+	for(i = 0; i<pcbs.size();i++){
+		delete pcbs.at(i);
+	}
+
 	return 0;
 }
