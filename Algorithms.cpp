@@ -89,7 +89,6 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 			}
 			else if( args == "with_rude" || args == "with_pol" || args == "without" ) {
 				if(readyQueue.front()->getPRIO() > readyQueue.at(k)->getPRIO()){
-					cout << runningCPU.getTime() << "priority of front is: " << readyQueue.front()->getPRIO() << " back is: " << readyQueue.at(k)->getPRIO() << "\n";
 					readyQueue.push_front(*(readyQueue.begin()+k));
 					readyQueue.erase(readyQueue.begin()+k+1);
 				}
