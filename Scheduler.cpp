@@ -48,7 +48,8 @@ int main (){
 			<< "4. Priority (With Polite Preemption)\n"
 			<< "5. Priority (Without Preemption)\n" 
 			<< "6. SJF (Shortest Job First)\n" 
-			<< "7. SPB (Shortest Previous Burst)\n\nYour choice: ";
+			<< "7. SRJF (Shortest Remaining Job First)\n"
+			<< "8. SPB (Shortest Previous Burst)\n\nYour choice: ";
 
 	cin >> select;
 
@@ -73,6 +74,9 @@ int main (){
 		ranCPU = Algorithms("sjf", pcbs);
 	}
 	else if(select == '7'){
+		ranCPU = Algorithms("srjf", pcbs);
+	}
+	else if(select == '8'){
 		ranCPU = Algorithms("spb", pcbs);
 	}
 	

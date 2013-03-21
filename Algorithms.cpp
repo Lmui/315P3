@@ -100,7 +100,13 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 					readyQueue.erase(readyQueue.begin()+k+1);
 				}
 			}
-			else { //if( args == "sjf" ) {
+			else if (args == "srjf"){
+				if(readyQueue.front()->getNextCPU() >readyQueue.at(k)->getNextCPU()){
+					readyQueue.push_front(*(readyQueue.begin()+k));
+					readyQueue.erase(readyQueue.begin()+k+1);
+				}
+			}
+			else { //if( args == "sjf") {
 				if(readyQueue.front()->getNextCPU() - readyQueue.front()->getSJF_PRIO() > readyQueue.at(k)->getNextCPU() - readyQueue.at(k)->getSJF_PRIO()){
 					readyQueue.push_front(*(readyQueue.begin()+k));
 					readyQueue.erase(readyQueue.begin()+k+1);
@@ -114,7 +120,7 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 		}
 
 		//Age all the processes
-		if(args != "fifo" && args != "RR"){
+		if(args != "fifo" && args != "RR" && args != "srjf"){
 			for(int k = 1; k <readyQueue.size(); k++){
 				readyQueue.at(k)->incAge();
 				if(readyQueue.at(k)->getAge() == ageSpeed){
@@ -136,7 +142,7 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 			}
 		}		
 		
-		if(args == "with_rude") {
+		if(args == "with_rude" || args == "srjf") {
 			int nextRunTime = numeric_limits<int>::max();
 
 			// check to see the next 'happening', whether it be the next TARQ, or a process coming out of I/O burst
@@ -157,7 +163,7 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 			runningCPU.run(readyQueue.front(),readyQueue.front()->getNextCPU());
 		}
 		//Run the time slice algorithm
-		else { // if(args == "RR" || args == "with_rude" || args == "with_pol") {
+		else { // if(args == "RR" || args == "with_rude" || args == "with_pol" || args == "srjf") {
 			if(readyQueue.front()->getNextCPU() < quantum){
 				runningCPU.run(readyQueue.front(),readyQueue.front()->getNextCPU());
 			}
