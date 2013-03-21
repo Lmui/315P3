@@ -20,7 +20,7 @@ int main (){
 	int i=0;
 	int turnAround = 0;
 	int avgWait = 0;
-
+	cout << "Welcome to group A4's implementation of the CPU Scheduler project\nWritten by Leslie Mui and Jun Oh\nLast modified on Mar. 20, 2013\n\n";
 	//Prompt the user for the name of the file containing the workload
 	cout << "Please enter the name of the file that contains the workload: ";
 	cin >> filename;

@@ -74,8 +74,13 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 			}
 		}
 
+		//If there are no living processes, stop
+		if(deathCount >= pcbs.size()){
+			break;
+		}
+
 		//Find the next process to be run and put it at the beginning of the readyqueue
-		for(int k = readyQueue.size() - 1; k > 0; k--){
+		for(int k = 1; k < readyQueue.size(); k++){
 			if( args == "fifo" || args == "RR" ) {
 				if(readyQueue.front()->getNextRunTime() > readyQueue.at(k)->getNextRunTime()){
 					readyQueue.push_front(*(readyQueue.begin()+k));
@@ -101,6 +106,11 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 					readyQueue.erase(readyQueue.begin()+k+1);
 				}
 			}
+		}		
+
+		//If there are still living processes, but none of them can be run, run an idle process for one unit of time
+		if(readyQueue.empty()){
+			readyQueue.push_front(idle);
 		}
 
 		//Age all the processes
@@ -124,18 +134,8 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 					}
 				}
 			}
-		}
-
-		//If there are no living processes, stop
-		if(deathCount >= pcbs.size()){
-			break;
-		}
-
-		//If there are still living processes, but none of them can be run, run an idle process for one unit of time
-		if(readyQueue.empty()){
-			readyQueue.push_front(idle);
-		}
-
+		}		
+		
 		if(args == "with_rude") {
 			int nextRunTime = numeric_limits<int>::max();
 
@@ -166,6 +166,7 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 			}
 		}
 
+		readyQueue.front()->resetAge();
 		if(args == "spb") {
 			readyQueue.front()->setSPB(alpha, runningCPU.getLastRuntime());
 		}
