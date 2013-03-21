@@ -94,7 +94,7 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 				}
 			} 
 			else if( args == "spb" ) {
-				if(readyQueue.front()->getNextCPU() > readyQueue.at(k)->getNextCPU()){
+				if(readyQueue.front()->getSPB() > readyQueue.at(k)->getSPB()){
 					readyQueue.push_front(*(readyQueue.begin()+k));
 					readyQueue.erase(readyQueue.begin()+k+1);
 				}
