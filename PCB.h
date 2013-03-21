@@ -45,7 +45,8 @@ public:
 	void incAge(void);
 	void resetAge(void);
 	void ageSPB(void);
-	void PCB::incSJF_PRIO(void);
+	void incSJF_PRIO(void);
+	void resetPRIO(void);
 
 private:
 
@@ -74,6 +75,8 @@ private:
 	deque<int> ioBurst;
 	//Priority value for shortest job first
 	int sjf_prio;
+	//Original priority value for reverse aging
+	int PRIO_Orig;
 
 };
 

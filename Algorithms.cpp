@@ -169,6 +169,9 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 		if(args == "spb") {
 			readyQueue.front()->setSPB(alpha, runningCPU.getLastRuntime());
 		}
+		if(args == "with_rude" || args == "with_pol" || args == "without") {
+			readyQueue.front()->resetPRIO();
+		}
 		readyQueue.pop_front();
 	}
 	delete idle;

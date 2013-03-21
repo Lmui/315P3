@@ -24,6 +24,7 @@ PCB::PCB(){
 	this -> nextRunTime = this->TARQ;
 	this -> SPB = 1;
 	this -> sjf_prio = 0;
+	this -> PRIO_Orig = this->PRIO;
 }
 
 //Requires that the number of distinct inputs in s be at least five and that the total distinct inputs be 2*TNCPU +3
@@ -68,7 +69,8 @@ PCB::PCB(string process){
 	delete[] proc;
 	//Initialize the first run time to TARQ
 	this->nextRunTime = this->TARQ;
-
+	//Set the original Priority
+	this->PRIO_Orig = this->PRIO;
 }
 
 //Accessors
@@ -224,4 +226,8 @@ void PCB::incSJF_PRIO(){
 	if( this->sjf_prio < this->getNextCPU() ) {
 		this->sjf_prio++;
 	}
+}
+//Reset PRIO to original value
+void PCB::resetPRIO(){
+	this->PRIO = this->PRIO_Orig;
 }
