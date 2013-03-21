@@ -231,3 +231,7 @@ void PCB::incSJF_PRIO(){
 void PCB::resetPRIO(){
 	this->PRIO = this->PRIO_Orig;
 }
+//Reset priority value for sjf
+void PCB::resetSJF_PRIO(){
+	this->sjf_prio = 0;
+}

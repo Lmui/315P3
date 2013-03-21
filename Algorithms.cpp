@@ -172,6 +172,9 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 		if(args == "with_rude" || args == "with_pol" || args == "without") {
 			readyQueue.front()->resetPRIO();
 		}
+		if(args == "sjf") {
+			readyQueue.front()->resetSJF_PRIO();
+		}
 		readyQueue.pop_front();
 	}
 	delete idle;

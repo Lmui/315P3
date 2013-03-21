@@ -47,6 +47,7 @@ public:
 	void ageSPB(void);
 	void incSJF_PRIO(void);
 	void resetPRIO(void);
+	void resetSJF_PRIO(void);
 
 private:
 
