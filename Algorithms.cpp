@@ -41,7 +41,7 @@ CPU Algorithms(string args, vector<PCB*> pcbs){
 	}
 
 	//Prompt the user for the speed of aging
-	if(args != "fifo" && args != "RR"){
+	if(args != "fifo" && args != "RR" && args != "srjf"){
 		string s;		
 		do{
 			cout << "\nPlease enter a positive integer as the speed of aging.\n\nYour choice: ";
